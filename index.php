@@ -1,22 +1,25 @@
 <?php
 
 use Application\Src\Model\Encounter\Encounter;
+use Application\Src\Model\Player\Player;
 
-$greg = new Encounter();
+$greg = new Player;
 $greg->level = 400;
-$jade = new Encounter();
+$jade = new Player;
 $jade->level = 800;
+
+$encounter = new Encounter;
 
 
 echo sprintf(
     'Greg à %.2f%% chance de gagner face a Jade',
-    $greg->probabilityAgainst($jade) * 100
-    
+    $encounter->probabilityAgainst($greg, $jade) * 100
+
 ) . PHP_EOL;
 
 // Imaginons que greg l'emporte tout de même.
-$greg->setNewLevel($jade, $greg->RESULT_WINNER);
-$jade->setNewLevel($greg, $jade->RESULT_LOSER);
+$encounter->setNewLevel($greg, $jade, $encounter::RESULT_WINNER);
+$encounter->setNewLevel($jade, $greg, $encounter::RESULT_LOSER);
 
 echo sprintf(
     'les niveaux des joueurs ont évolués vers %s pour Greg et %s pour Jade',
